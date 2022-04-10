@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/request" method = "post">
+        <label>Select your blood type</label>
+        <select name = "blood">
+            <option value="aPlus">A+</option>
+            <option value="aMin">A-</option>
+            <option value="bPlus">B+</option>
+            <option value="bMin">B-</option>
+            <option value="oPlus">O+</option>
+            <option value="oMin">O-</option>
+            <option value="abPlus">AB+</option>
+            <option value="abMin">AB-</option>
+        </select>
+        <label>Enter your email</label>
+        <input type="email" name = "email">
+        <label>Enter your state</label>
+        <input type="text" name = "state">
+        <label>Enter your city </label>
+        <input type="text" name = "city">
+        <label>Enter your phone</label>
+        <input type = "text" name = "phone">
+        <br>
+        <select name = "sameState">
+            <option value="1">yes</option>
+            <option value="0">NO</option>
+        </select>
+        
+        
+
+        <input type = "submit">
+    </form>
+    
+</body>
+</html>
