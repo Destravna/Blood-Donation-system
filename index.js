@@ -7,10 +7,21 @@ const bcrypt = require("bcrypt");
 const ejs = require('ejs'); 
 var cors = require('cors');
 const { process_params } = require("express/lib/router");
+const res = require("express/lib/response");
 mongoose.connect("mongodb://localhost:27017/bloodDonationDB", {useNewUrlParser : true});
 const saltRounds = 2;
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
+app.use(express.static("public"));
+
+app.get("/Home", (req, res)=>{
+    res.render("home.ejs");
+});
+
+app.get("/userPage", (req, res)=>{
+    res.render("userPage");
+})
+
 
 
 //REQUEST SCHEMA
@@ -98,7 +109,7 @@ app.post("/userRegister", (req, res)=>{
 
 //displaying the register page to the user
 app.get("/userRegister", (req, res)=>{
-    res.render("userRegister.ejs");
+    res.render("useregister.ejs");
 })
 
 //user login
@@ -195,7 +206,7 @@ app.post("/hospitalLogin", (req, res)=>{
 })
 //handling get requests
 app.get("/hospitalRegister",(req, res)=>{
-    res.render('hospitalForm.ejs');
+    res.render('hospitalRegister.ejs');
 });
 
 app.get("/hospitalLogin", (req, res)=>{
