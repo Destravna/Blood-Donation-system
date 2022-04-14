@@ -28,3 +28,7 @@
     background-size: 100%;
     padding: 10px;
 }
+
+li{
+    list-style: none;
+}

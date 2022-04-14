@@ -13,13 +13,20 @@ const saltRounds = 2;
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-
 app.get("/Home", (req, res)=>{
     res.render("home.ejs");
 });
 
 app.get("/userPage", (req, res)=>{
     res.render("userPage");
+})
+
+app.get("/rp", (req, res)=>{
+    res.render("requestPosts.ejs");
+})
+
+app.get("/rr", (req, res)=>{
+    res.render("requestReturn.ejs");
 })
 
 
@@ -36,6 +43,33 @@ const requestSchema = new mongoose.Schema({
 });
 
 const Request = new mongoose.model("requests", requestSchema);
+
+const contactSchema = new mongoose.Schema({
+    name : String,
+    email : String,
+    message : String
+});
+
+const Contact = new mongoose.model("contacts", contactSchema);
+
+app.post("/contact", (req, res)=>{
+    const newContact = new Contact({
+        name : req.body.name,
+        email : req.body.email,
+        message : req.body.message
+    });
+    newContact.save((err)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send("Message received");
+        }
+    })
+
+    
+
+})
 
 //defining user schema
 const userSchema = new mongoose.Schema({
@@ -69,6 +103,29 @@ const hospitalSchema = new mongoose.Schema({
     approved : Number //if 0 then pending for approval ,  1 approved
 });
 const Hospital = new mongoose.model("hospital", hospitalSchema);
+
+app.get("/contact", (req, res)=>{
+    res.render("contactUs");
+})
+
+app.get("/about", (req, res)=>{
+    res.render("aboutUS");
+})
+
+
+
+app.get("/bloodyPosts", (req, res)=>{
+    Request.find({}, (err, data)=>{
+        if(err){
+            console.log("error");
+        }
+        else if(data){
+            console.log(data);
+            res.render("requestPosts", {data : data});
+        }
+    })
+});
+
 
 
 /*
@@ -124,7 +181,7 @@ app.post("/userLogin", (req, res)=>{
             if(data){
                 bcrypt.compare(password, data.password, (err, res2)=>{
                     if(res2 === true){
-                        res.send(data);
+                        res.render("userPage.ejs", {t_userData:data});
                     }
                     else{
                         res.send("User with the given credentials not found");
@@ -232,8 +289,9 @@ app.post("/request" ,(req, res)=>{
     const phone = req.body.phone;
     const state = req.body.state;
     const city = req.body.city;
-    const sameState = req.body.sameState;
+    const sameState = 0;
     const username = req.body.username;
+    //console.log(req);
     console.log(blood);
     if(sameState == 0){
         Hospital.findOne({city : city, approved : 1, [blood] : {$gt : 1}}, (err, data)=>{
@@ -242,7 +300,7 @@ app.post("/request" ,(req, res)=>{
             }
             else{
                 if(data){
-                    res.send(data);
+                    res.render("requestReturn.ejs", {fulfil : data});
                 }
                 else{
                     res.send("No hospital with the requireed blood found in the given city, try looking for in your state");
@@ -319,4 +377,4 @@ app.get("/", (req, res)=>{
 
 app.listen(port, ()=>{
     console.log("Server started at port 8080");
-});
+})

@@ -4,39 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "/css/home.css">
+    <link rel = "stylesheet" href = "/css/hRegister.css">
 </head>
 <body>
-    <form action="/request" method = "post">
-        <label>Select your blood type</label>
-        <select name = "blood">
-            <option value="aPlus">A+</option>
-            <option value="aMin">A-</option>
-            <option value="bPlus">B+</option>
-            <option value="bMin">B-</option>
-            <option value="oPlus">O+</option>
-            <option value="oMin">O-</option>
-            <option value="abPlus">AB+</option>
-            <option value="abMin">AB-</option>
-        </select>
-        <label>Enter your email</label>
-        <input type="email" name = "email">
-        <label>Enter your state</label>
-        <input type="text" name = "state">
-        <label>Enter your city </label>
-        <input type="text" name = "city">
-        <label>Enter your phone</label>
-        <input type = "text" name = "phone">
-        <br>
-        <select name = "sameState">
-            <option value="1">yes</option>
-            <option value="0">NO</option>
-        </select>
-        
-        
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="/images/finalLogo.png" width="100" height="50" alt="">
+        </a>
+        <a class="nav-link">About us</a>
+        <a class="nav-link">Contact us</a>
+        <a class="nav-link"><img src = "/images/user-128.png" width="30" height="30">LogOut</a>
+      </nav>
 
-        <input type = "submit">
-    </form>
+      <div class = "wrapper">
+        <div class = "header">
+            <h2>Hope you are well</h2>
+            <h2>Please enter the required details</h2>
+        </div>
+        <div class = "form-div">
+            <div>
+                <form action="/request" method = "post">
+                    
+                    <select name = "blood">
+                        <option value="none" disabled selected>Choose blood type</option>
+                        <option value="aPlus">A+</option>
+                        <option value="aMin">A-</option>
+                        <option value="bPlus">B+</option>
+                        <option value="bMin">B-</option>
+                        <option value="oPlus">O+</option>
+                        <option value="oMin">O-</option>
+                        <option value="abPlus">AB+</option>
+                        <option value="abMin">AB-</option>
+                    </select>
+                    
+                    <input type="email" name = "email" placeholder="email">
+                    <input type="text" name = "state" placeholder="state">
+                    <input type="text" name = "city" placeholder="city">
+                    <input type = "text" name = "phone" placeholder="phone number">
+                    <br>
+                    <br>
+                    <button class = "reset" type = "reset">Reset</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class = "Register">Make Request</button>
+                </form>
+            </div>
+        </div>
+      </div>
+
+    
     
 </body>
 </html>
