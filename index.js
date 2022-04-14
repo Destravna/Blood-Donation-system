@@ -66,9 +66,6 @@ app.post("/contact", (req, res)=>{
             res.send("Message received");
         }
     })
-
-    
-
 })
 
 //defining user schema
@@ -103,6 +100,9 @@ const hospitalSchema = new mongoose.Schema({
     approved : Number //if 0 then pending for approval ,  1 approved
 });
 const Hospital = new mongoose.model("hospital", hospitalSchema);
+
+
+
 
 app.get("/contact", (req, res)=>{
     res.render("contactUs");
@@ -233,7 +233,7 @@ app.post("/hospitalRegister", (req, res)=>{
                 console.log(err);
             }
             else{
-                res.send(newHospital);
+                res.render("hospitalSuccessful");
             }
         })
     })
@@ -303,7 +303,21 @@ app.post("/request" ,(req, res)=>{
                     res.render("requestReturn.ejs", {fulfil : data});
                 }
                 else{
-                    res.send("No hospital with the requireed blood found in the given city, try looking for in your state");
+                    res.send("");
+                    const newReq = new Request({
+                        bloodGroup : blood,
+                        city : city,
+                        state : state,
+                        phone : phone,
+                        email : email,
+                        sameState : sameState,
+                        username : username
+                    })
+                    newReq.save(err=>{
+                        if(err){
+                            console.log(err);
+                        }
+                    })
                 }
             }
         })
@@ -319,25 +333,26 @@ app.post("/request" ,(req, res)=>{
                 }
                 else{
                     res.send("No hospital with the requireed blood found in our database , you are on your own now");
+                    const newReq = new Request({
+                        bloodGroup : blood,
+                        city : city,
+                        state : state,
+                        phone : phone,
+                        email : email,
+                        sameState : sameState,
+                        username : username
+                    })
+                    newReq.save(err=>{
+                        if(err){
+                            console.log(err);
+                        }
+                    })
                 }
             }
         })
 
     }
-    const newReq = new Request({
-        bloodGroup : blood,
-        city : city,
-        state : state,
-        phone : phone,
-        email : email,
-        sameState : sameState,
-        username : username
-    })
-    newReq.save(err=>{
-        if(err){
-            console.log(err);
-        }
-    })
+    
 });
 
 
@@ -369,6 +384,10 @@ app.delete("/requestDelete/:req_id", (req, res)=>{
     })
 })
 
+
+app.get("/read", (req, res)=>{
+    res.render("read");
+})
 
 //posting request methods 
 app.get("/", (req, res)=>{
