@@ -157,7 +157,7 @@ app.post("/userRegister", (req, res)=>{
                 console.log(err);
             }
             else{
-                res.send("Registration Successful");
+                res.render("registrationSful");
             }
         })
     })
@@ -303,7 +303,7 @@ app.post("/request" ,(req, res)=>{
                     res.render("requestReturn.ejs", {fulfil : data});
                 }
                 else{
-                    res.send("");
+                    res.render("noHospital");
                     const newReq = new Request({
                         bloodGroup : blood,
                         city : city,
